@@ -15,8 +15,8 @@
     get_url:
       url: '{{ maven_download_url }}'
       dest: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
-    when: maven_installed.stat.exists != True  
-  - name: Unarchive Maven Binaries
+    when: maven_installed.stat.exists != True      
+  - name: Unarchive Maven Binaries   #
     unarchive:
       src: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
       dest: '{{ maven_home_parent_directory }}'
