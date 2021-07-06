@@ -1,0 +1,10 @@
+- name: Update Cache
+  apt: update_cache=yes
+- name: Install Docker Engine
+  apt: name=docker.io state=present
+- name: Start Docker Service
+  sevice: name=docker state=started
+- name: Permission for User
+  user: name={{demouser}} group=docker
+- name: Install Docker Compose
+  apt: name=docker-compose state=present

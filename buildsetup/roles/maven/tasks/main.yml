@@ -1,7 +1,7 @@
   - name: Apt Update
     apt: update_cache=yes
   - name : Install JDK 1.8
-    apt: name=java-1.8.0-openjdk state=present
+    apt: name=openjdk-8-jdk state=present
   - name: Install Git
     apt: name=git state=present
   - name: Check & Create downloads dir    # Wheater a file or folder is available or not avail
