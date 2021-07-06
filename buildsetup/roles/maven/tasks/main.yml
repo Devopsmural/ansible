@@ -1,34 +1,36 @@
+  - name: Apt Update
+    apt: update_cache=yes
   - name : Install JDK 1.8
-    yum: name=java-1.8.0-openjdk state=present
+    apt: name=java-1.8.0-openjdk state=present
   - name: Install Git
-    yum: name=git state=present
-  - name: Check & create downloads dir
+    apt: name=git state=present
+  - name: Check & Create downloads dir    # Wheater a file or folder is available or not avail
     file:
       path: '{{ maven_home_parent_directory }}'
       state: directory
       mode: 0755
   - name: Checking if Maven is already installed
-    stat: 
+    stat:                                     
       path: '{{ maven_home_parent_directory }}/apache-maven-{{ maven_version }}'
-    register: maven_installed
+    register: maven_installed       # Capturing the vairables Stat prperties will be stord
   - name: Downloading Maven Binaries
     get_url:
       url: '{{ maven_download_url }}'
       dest: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
-    when: maven_installed.stat.exists != True      
-  - name: Unarchive Maven Binaries   #
+    when: maven_installed.stat.exists != True  # when folder is not avai the condition is true
+  - name: Unarchive Maven Binaries   
     unarchive:
       src: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
       dest: '{{ maven_home_parent_directory }}'
       copy: no
     when: maven_installed.stat.exists != True
-  - name: Remove old path configuration
+  - name: Remove old path configuration   
     file:
       path: /etc/profile.d/maven.sh
       state: absent
     when: maven_installed.stat.exists != True
   - name: Maven path configuration
-    lineinfile:
+    lineinfile:          
       dest: /etc/profile.d/maven.sh
       line: '{{ item.line }}'
       create: yes
@@ -40,5 +42,4 @@
     file:
      state: absent
      path: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
-
 
