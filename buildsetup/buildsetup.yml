@@ -1,7 +1,6 @@
 ---
-- hosts: demo
+- hosts: all
   become: yes
   roles:
    - maven
    - docker
-   - s3

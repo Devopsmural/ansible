@@ -1,13 +1,24 @@
   - name: Install python-pip library  # prerequisite for ubuntu machines #
-    apt: name='{{item}}'
+    apt: name= '{{item}}'
     with_items:
      - python-pip
      - python-dev
   - name: Install python-boto library
     pip: name=boto
+  - apt: name= '{{item}}'
+    with_items:                     #boto liberyies
+           - boto
+           - boto3
+           - botocore
   - name: Create S3 bucket
     s3_bucket:                       # change the bucket name and region as per your account #
-       name: mys3bucket
-       region: "us-east-1"
-       state: present
+        name: mys3bucket-1c
+        region: "ap-south-1"
+        state: present
+  - name: basic upload
+    s3_sync:
+        bucket: mys3bucket-1c
+        region: "ap-south-1"
+        file_root: /home/ubuntu/ansible/buildsetup
+        file_root: /home/ubuntu
 

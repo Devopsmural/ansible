@@ -1,21 +1,21 @@
 provider "aws" {
- region = "ap-south-1"
-  }
-variable "BuidAMI" {
+  region = "ap-south-1"
+}
+variable "BuildAMI" {
  description = "Build Server AMI"
- default = "ami-"
+ default = "ami-04bde106886a53080"
   }
 variable "BuildType" {
- description ="Buld Server Type"
- default ="t2.micro"
+ description = "Buld Server Type"
+ default = "t2.micro"
   }
 variable "BuildKey" {
- description ="Build Server Key"
+ description = "Build Server Key"
  default = "test"
   }
 variable "BuildUser" {
  description = "Build User"
- default ="ubuntu"
+ default = "ubuntu"
   }
 resource "aws_instance" "example" {
  ami            = var.BuildAMI
