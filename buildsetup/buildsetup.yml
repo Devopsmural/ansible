@@ -1,6 +1,9 @@
 ---
-- hosts: all
+- hosts: localhost
   become: yes
+  connection: local
+  gather_facts: no
   roles:
-   - maven
-   - docker
+   - ec2
+   - s3
+   
